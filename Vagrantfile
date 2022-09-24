@@ -29,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   master.vm.hostname = "master"
   master.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET}"
   master.vm.provision :hosts, :sync_hosts => true
+  master.vm.synced_folder "./ansible", "/home/vagrant/ansible", create: true
   end
 
   # worker
