@@ -6,9 +6,16 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  # vm1
-  config.vm.define "vm1" do |vm1|
-  config.vm.box = "generic/ubuntu2204"
+  # master
+  config.vm.define "master" do |master|
+  master.vm.box = "generic/ubuntu2204"
+  end
+
+  # worker
+  (1..2).each do |i|
+    config.vm.define "worker-#{i}" do |worker|
+    worker.vm.box = "generic/ubuntu2204"
+    end
   end
 
   # Disable automatic box update checking. If you disable this, then
