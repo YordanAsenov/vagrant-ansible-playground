@@ -1,15 +1,30 @@
 VAGRANTFILE_API_VERSION = "2"
+OFFSET = 10
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # hosts resolver
+  config.vm.provision :hosts do |resolver|
+    resolver.add_host "192.168.56.#{OFFSET}", ["master"]
+    (1..2).each do |i|
+      resolver.add_host "192.168.56.#{OFFSET+i}", ["worker-#{i}"]
+    end
+  end
+
   # master
   config.vm.define "master" do |master|
   master.vm.box = "generic/ubuntu2204"
+  master.vm.hostname = "master"
+  master.vm.network :private_network, ip: "192.168.56.#{OFFSET}"
+  master.vm.provision :hosts, :sync_hosts => true
   end
 
   # worker
   (1..2).each do |i|
     config.vm.define "worker-#{i}" do |worker|
     worker.vm.box = "generic/ubuntu2204"
+    worker.vm.hostname = "worker-#{i}"
+    worker.vm.network :private_network, ip: "192.168.56.#{OFFSET+i}"
+    worker.vm.provision :hosts, :sync_hosts => true
     end
   end
 

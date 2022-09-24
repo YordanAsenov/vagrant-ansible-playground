@@ -44,7 +44,12 @@ To use Vagrant in your project:
     vagrant plugin install virtualbox_WSL2
     ```
 
-4. add below settings to your shell in WSL (.bashrc / .zshrc / etc..):
+4. install vagrant-hosts plugin
+     ```bash
+    vagrant plugin install vagrant-hosts
+    ```
+
+5. add below settings to your shell in WSL (.bashrc / .zshrc / etc..):
     ```bash
    # Vagrant
     export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
@@ -52,9 +57,9 @@ To use Vagrant in your project:
     export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"   
     ```
 
-5. run Vagrantfile
+6. run Vagrantfile
     ```bash
     vagrant up
     ```
-    
+
 <!-- [END getstarted] -->
