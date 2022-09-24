@@ -34,6 +34,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   master.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET}"
   master.vm.provision :hosts, :sync_hosts => true
   master.vm.synced_folder "./ansible", "/home/vagrant/ansible", create: true
+  master.vm.synced_folder "./scripts", "/home/vagrant/scripts", create: true
+  master.vm.provision "shell", path: "scripts/init.sh"
   end
 
   # worker
