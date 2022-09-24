@@ -61,8 +61,12 @@ To use Vagrant in your project:
     alias vup='vagrant up'
     alias vdf='vagrant destroy -f'
     ```
-
-6. run Vagrantfile
+6. [Optional] install Vagrant autocomplete
+    ```bash
+    vagrant autocomplete install --bash --zsh
+    ```
+    
+7. run Vagrantfile
     ```bash
     vagrant up
     ```
