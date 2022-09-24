@@ -2,6 +2,10 @@ VAGRANTFILE_API_VERSION = "2"
 PROJECT_NAME = "playground"
 NETWORK_IP = "192.168.56"
 OFFSET = 10
+MASTER_CPU = 2
+MASTER_MEMORY = 1024
+WORKER_CPU = 2
+WORKER_MEMORY = 2048 
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # hosts resolver
@@ -23,8 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   master.vm.box = "generic/ubuntu2204"
   master.vm.provider "virtualbox" do |vm|
     vm.name = "#{PROJECT_NAME}-master"
-    vm.cpus = 2
-    vm.memory = 1024
+    vm.cpus = "#{MASTER_CPU}"
+    vm.memory = "#{MASTER_MEMORY}"
   end
   master.vm.hostname = "master"
   master.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET}"
@@ -38,8 +42,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     worker.vm.box = "generic/ubuntu2204"
     worker.vm.provider "virtualbox" do |vm|
       vm.name = "#{PROJECT_NAME}-worker-#{i}"
-      vm.cpus = 2
-      vm.memory = 2048
+      vm.cpus = "#{WORKER_CPU}"
+      vm.memory = "#{WORKER_MEMORY}"
     end
     worker.vm.hostname = "worker-#{i}"
     worker.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET+i}"
