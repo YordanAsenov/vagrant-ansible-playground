@@ -8,7 +8,9 @@
 
 Most things that you can do manually in VirtualBox, in VMware Fusion and in Hyper-V can be done using Vagrant! Here are a few examples to get you started:
 
-- Create a new Virtual machine 
+- Create one or more Virtual machines
+- Define resources usage
+- Configure VMs networks
 
 <!-- [END usecases] -->
 
@@ -33,6 +35,7 @@ To use Vagrant in your project:
         [automount]
         options = "metadata"
         ```
+
 2. install vagrant:
     ```bash
     # from Debian-based distributions
@@ -55,6 +58,8 @@ To use Vagrant in your project:
     export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
     export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/c/Users/{your_user_name}"
     export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"   
+    alias vup='vagrant up'
+    alias vdf='vagrant destroy -f'
     ```
 
 6. run Vagrantfile
