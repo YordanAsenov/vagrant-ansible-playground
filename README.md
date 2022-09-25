@@ -60,6 +60,7 @@ To use Vagrant in your project:
     export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"   
     alias vup='vagrant up'
     alias vdf='vagrant destroy -f'
+    alias vh='vagrant halt'
     ```
 6. [Optional] install Vagrant autocomplete
     ```bash

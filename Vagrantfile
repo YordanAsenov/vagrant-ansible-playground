@@ -3,7 +3,7 @@ PROJECT_NAME = "playground"
 NETWORK_IP = "192.168.56"
 OFFSET = 10
 MASTER_CPU = 2
-MASTER_MEMORY = 1024
+MASTER_MEMORY = 2048
 WORKER_CPU = 2
 WORKER_MEMORY = 2048 
 
@@ -17,6 +17,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # default image
+  config.vm.synced_folder "./scripts", "/home/vagrant/scripts", create: true
+  config.vm.provision "shell", path: "scripts/init-base.sh"
   config.vm.provider :virtualbox do |base|
     base.linked_clone = true
     base.name = "base"
@@ -33,9 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   master.vm.hostname = "master"
   master.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET}"
   master.vm.provision :hosts, :sync_hosts => true
-  master.vm.synced_folder "./ansible", "/home/vagrant/ansible", create: true
-  master.vm.synced_folder "./scripts", "/home/vagrant/scripts", create: true
-  master.vm.provision "shell", path: "scripts/init.sh"
+  master.vm.provision "shell", path: "scripts/init-master.sh"
   end
 
   # worker
@@ -50,6 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     worker.vm.hostname = "worker-#{i}"
     worker.vm.network :private_network, ip: "#{NETWORK_IP}.#{OFFSET+i}"
     worker.vm.provision :hosts, :sync_hosts => true
+    worker.vm.provision "shell", path: "scripts/init-worker.sh"
     end
   end
 end
