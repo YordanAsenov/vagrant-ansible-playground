@@ -2,8 +2,10 @@ VAGRANTFILE_API_VERSION = "2"
 PROJECT_NAME = "playground"
 NETWORK_IP = "192.168.56"
 OFFSET = 10
+MASTER_BOX = "generic/ubuntu2204"
 MASTER_CPU = 2
 MASTER_MEMORY = 2048
+WORKER_BOX = "generic/ubuntu2204"
 WORKER_CPU = 2
 WORKER_MEMORY = 2048 
 
@@ -26,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # master
   config.vm.define "master" do |master|
-  master.vm.box = "generic/ubuntu2204"
+  master.vm.box = "#{MASTER_BOX}"
   master.vm.provider "virtualbox" do |vm|
     vm.name = "#{PROJECT_NAME}-master"
     vm.cpus = "#{MASTER_CPU}"
@@ -42,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # worker
   (1..2).each do |i|
     config.vm.define "worker-#{i}" do |worker|
-    worker.vm.box = "generic/ubuntu2204"
+    worker.vm.box = "#{WORKER_BOX}"
     worker.vm.provider "virtualbox" do |vm|
       vm.name = "#{PROJECT_NAME}-worker-#{i}"
       vm.cpus = "#{WORKER_CPU}"
