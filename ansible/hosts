@@ -3,7 +3,11 @@ master
 worker-1
 worker-2
 
-[master]
+[all:vars]
+ansible_user=vagrant
+ansible_ssh_pass=vagrant
+
+[controller]
 master
 
 [worker]
