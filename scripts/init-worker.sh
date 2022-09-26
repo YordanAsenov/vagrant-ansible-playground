@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "Hi from Worker!"
+echo "Start init-worker"
+echo "End init-worker"
